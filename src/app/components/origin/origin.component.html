@@ -1,0 +1,8 @@
+<div>
+  <app-autocomplete-search
+    [portType]="'origin'"
+    [defValue]="defOrigin"
+    [airports]="airports"
+    (setFlightDetails)="setFlightDetails($event)"
+  ></app-autocomplete-search>
+</div>

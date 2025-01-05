@@ -1,0 +1,7 @@
+<div class="mt-4 lg:mt-0">
+  <mat-form-field>
+    <input matInput [matDatepicker]="startPicker" [value]="startDate" (dateChange)="handleStartDateChange($event)" placeholder="Start Date">
+    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+    <mat-datepicker #startPicker></mat-datepicker>
+  </mat-form-field>
+</div>

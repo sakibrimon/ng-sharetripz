@@ -1,0 +1,129 @@
+<div class="mt-8 card bg-base-100 w-96# shadow-xl">
+  <form class="card-body" (ngSubmit)="handleSearchFlight($event)">
+    <div class="flex items-center dark:bg-gray-100# dark:text-gray-800#">
+      <a rel="noopener noreferrer" href="#"
+        class="px-5 py-1 border-b-2 dark:border-violet-600 dark:text-violet-600">Flight</a>
+      <a rel="noopener noreferrer" href="#" class="px-5 py-1 border-b-2 dark:border-gray-300">Hotel</a>
+      <a rel="noopener noreferrer" href="#" class="px-5 py-1 border-b-2 dark:border-gray-300">Holiday</a>
+      <a rel="noopener noreferrer" href="#" class="px-5 py-1 border-b-2 dark:border-gray-300">Visa</a>
+      <div class="px-5 py-1 border-b-2 dark:border-gray-300 w-full">&nbsp;</div>
+    </div>
+
+    <div class="mt-5 flex flex-col gap-3 lg:gap-0 lg:flex-row lg:justify-between lg:items-end">
+      <div class="flex gap-2">
+        <label class="btn btn-xs lg:btn-sm cursor-pointer flex items-center gap-2">
+          <input type="radio" name="travelType" value="One Way" class="radio radio-xs lg:radio-sm"
+            (change)="setTravelType($event)" />
+          <span>One Way</span>
+        </label>
+        <label class="btn btn-xs lg:btn-sm cursor-pointer flex items-center gap-2">
+          <input type="radio" name="travelType" value="Round Trip" class="radio radio-xs lg:radio-sm"
+            [checked]="travelType === 'Round Trip'" (change)="setTravelType($event)" />
+          <span>Round Trip</span>
+        </label>
+        <label class="btn btn-xs lg:btn-sm cursor-pointer flex items-center gap-2">
+          <input type="radio" name="travelType" value="Multi City" class="radio radio-xs lg:radio-sm"
+            (change)="setTravelType($event)" />
+          <span>Multi City</span>
+        </label>
+      </div>
+
+      <div>
+        <!-- Traveler Dropdown -->
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-xs lg:btn-sm m-1 flex items-center">
+            <span>{{ getTotalTravelers() }} Traveler{{ getTotalTravelers() > 1 ? 's' : '' }}</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </div>
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-[310px] p-2 shadow">
+            <!-- Adults -->
+            <li class="flex flex-row justify-between items-center">
+              <span>Adults (12 and above)</span>
+              <div>
+                <mat-icon class="text-2xl cursor-pointer"
+                  (click)="updateTravelers('adults', 'decrement')">remove_circle_outline</mat-icon>
+                <span class="mx-2">{{ travelers.adults }}</span>
+                <mat-icon class="text-2xl cursor-pointer"
+                  (click)="updateTravelers('adults', 'increment')">add_circle_outline</mat-icon>
+              </div>
+            </li>
+
+            <!-- Children -->
+            <li class="flex flex-row justify-between items-center">
+              <span>Children (2 to u12)</span>
+              <div>
+                <mat-icon class="text-2xl cursor-pointer"
+                  (click)="updateTravelers('children', 'decrement')">remove_circle_outline</mat-icon>
+                <span class="mx-2">{{ travelers.children }}</span>
+                <mat-icon class="text-2xl cursor-pointer"
+                  (click)="updateTravelers('children', 'increment')">add_circle_outline</mat-icon>
+              </div>
+            </li>
+
+            <!-- Infants -->
+            <li class="flex flex-row justify-between items-center">
+              <span>Infants (under 2 years)</span>
+              <div>
+                <mat-icon class="text-2xl cursor-pointer"
+                  (click)="updateTravelers('infants', 'decrement')">remove_circle_outline</mat-icon>
+                <span class="mx-2">{{ travelers.infants }}</span>
+                <mat-icon class="text-2xl cursor-pointer"
+                  (click)="updateTravelers('infants', 'increment')">add_circle_outline</mat-icon>
+              </div>
+            </li>
+
+            <!-- Done Button -->
+            <div class="btn btn-block">Done</div>
+          </ul>
+        </div>
+
+        <!-- Ticket Class Dropdown -->
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-xs lg:btn-sm m-1 flex items-center">
+            <span>{{ ticketClass }}</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </div>
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li *ngFor="let cls of ['Economy', 'Premium Economy', 'Business Class', 'First Class']">
+              <label class="cursor-pointer flex items-center gap-2">
+                <input type="radio" name="ticketClass" class="radio radio-sm" [value]="cls"
+                  [checked]="ticketClass === cls" (change)="setTicketClass(cls)" />
+                <span>{{ cls }}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="travelType === 'Multi City'">
+      <app-flights [travelType]="travelType" [defOrigin0]="flightDetails.departureAirport"
+        [defDestination0]="flightDetails.arrivalAirport" [defStartDate0]="flightDetails.startFlyDate"
+        [defOrigin1]="flightDetails.arrivalAirport" defDestination1="JFK" [defStartDate1]="flightDetails.endFlyDate"
+        [airports]="airports" (setFlightDetails)="setFlightDetails($event)"></app-flights>
+    </ng-container>
+    <ng-container *ngIf="travelType !== 'Multi City'">
+      <app-flight [travelType]="travelType" [defOrigin]="flightDetails.departureAirport"
+        [defDestination]="flightDetails.arrivalAirport" [defStartDate]="flightDetails.startFlyDate"
+        [defEndDate]="flightDetails.endFlyDate" [airports]="airports"
+        (setFlightDetails)="setFlightDetails($event)"></app-flight>
+      <button class="mt-5 btn btn-warning" type="submit">
+        <span class="flex justify-center items-center gap-2 font-bold">
+          <mat-icon>search</mat-icon>
+          <span>Search Flight</span>
+        </span>
+      </button>
+    </ng-container>
+
+    <div class="mt-5 flex gap-5">
+      <label class="cursor-pointer flex items-center gap-2">
+        <input type="radio" name="fareType" value="Regular Fare" class="radio radio-sm" checked />
+        <span>Regular Fare</span>
+      </label>
+      <label class="cursor-pointer flex items-center gap-2">
+        <input type="radio" name="fareType" value="Student Fare" class="radio radio-sm" />
+        <span>Student Fare</span>
+      </label>
+    </div>
+  </form>
+</div>
