@@ -12,7 +12,6 @@ export class OriginComponent {
   @Input() airports!: any[];
   @Output() setFlightDetails = new EventEmitter<any>();
 
-  //
   constructor() { }
 
   onSelect(event: any) {

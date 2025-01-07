@@ -1,8 +1,4 @@
 <div>
-  <app-autocomplete-search
-    [portType]="'destination'"
-    [defValue]="defDestination"
-    [airports]="airports"
-    (setFlightDetails)="setFlightDetails($event)"
-  ></app-autocomplete-search>
+  <app-autocomplete-search [portType]="'destination'" [defValue]="defDestination" [airports]="airports"
+    (setFlightDetails)="onSelect($event)"></app-autocomplete-search>
 </div>

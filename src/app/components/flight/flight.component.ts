@@ -24,6 +24,8 @@ export class FlightComponent implements OnInit {
 
   ports: { origin: any; destination: any } | null = null;
 
+  constructor() { }
+
   ngOnInit() {
     this.ports = {
       origin: {
@@ -49,5 +51,9 @@ export class FlightComponent implements OnInit {
         arrivalAirport: this.ports.destination.defDestination
       });
     }
+  }
+
+  onSelect(event: any) {
+    this.setFlightDetails.emit(event);
   }
 }

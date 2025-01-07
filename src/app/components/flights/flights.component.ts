@@ -3,10 +3,11 @@ import { addDays } from 'date-fns';
 import { CommonModule } from '@angular/common';
 import { getOrdinalSuffix } from '../../../../utils';
 import { MatIconModule } from '@angular/material/icon';
+import { FlightComponent } from '../flight/flight.component';
 
 @Component({
   selector: 'app-flights',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, FlightComponent],
   templateUrl: './flights.component.html',
   styleUrl: './flights.component.css'
 })
@@ -22,6 +23,8 @@ export class FlightsComponent implements OnInit {
   @Output() setFlightDetails = new EventEmitter<any>();
 
   flights: any[] = [];
+
+  constructor() { }
 
   ngOnInit() {
     this.flights = [
@@ -61,5 +64,9 @@ export class FlightsComponent implements OnInit {
   // Using the imported getOrdinalSuffix function
   getOrdinalSuffix(index: number): string {
     return getOrdinalSuffix(index);
+  }
+
+  onSelect(event: any) {
+    this.setFlightDetails.emit(event);
   }
 }

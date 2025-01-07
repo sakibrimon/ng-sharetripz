@@ -74,9 +74,4 @@ export class AutocompleteSearchComponent implements OnInit {
       });
     }
   }
-
-  onSelect(event: any) {
-    // Emit the event with the selected value
-    this.setFlightDetails.emit(event);
-  }
 }

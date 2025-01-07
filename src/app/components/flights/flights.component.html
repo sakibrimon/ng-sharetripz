@@ -10,28 +10,19 @@
       </span>
     </div>
 
-    <app-flight
-      [travelType]="travelType"
-      [defOrigin]="flight.defOrigin"
-      [defDestination]="flight.defDestination"
-      [defStartDate]="flight.defStartDate"
-      [airports]="airports"
-      (setFlightDetails)="setFlightDetails($event)"
-    ></app-flight>
+    <app-flight [travelType]="travelType" [defOrigin]="flight.defOrigin" [defDestination]="flight.defDestination"
+      [defStartDate]="flight.defStartDate" [airports]="airports" (setFlightDetails)="onSelect($event)"></app-flight>
 
     <!-- Show Remove Button for Flights Beyond the First Two - on Larger Screens -->
-    <div *ngIf="index >= 2" class="absolute top-1/2 left-1/2# right-0 transform -translate-x-1/2 -translate-y-1/2 hidden lg:inline" (click)="handleRemoveFlight(index)" title="Remove Flight">
+    <div *ngIf="index >= 2"
+      class="absolute top-1/2 left-1/2# right-0 transform -translate-x-1/2 -translate-y-1/2 hidden lg:inline"
+      (click)="handleRemoveFlight(index)" title="Remove Flight">
       <mat-icon class="text-xl">cancel</mat-icon>
     </div>
   </div>
 
-  <div
-    class="mt-5 btn btn-outline btn-info lg:btn-ghost inline-flex gap-2 items-center"
-    [class.disabled]="flights.length >= 5"
-    (click)="handleAddFlights($event)"
-    [disabled]="flights.length >= 5"
-    type="button"
-  >
+  <div class="mt-5 btn btn-outline btn-info lg:btn-ghost inline-flex gap-2 items-center"
+    [class.disabled]="flights.length >= 5" (click)="flights.length < 5 && handleAddFlights($event)" type="button">
     <mat-icon>add</mat-icon>
     <span>Add more flights</span>
   </div>

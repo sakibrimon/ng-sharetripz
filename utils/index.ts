@@ -4,7 +4,7 @@ export function getOrdinalSuffix(num: number): string {
 
   // Special case for 11, 12, 13
   if (value >= 11 && value <= 13) {
-      return num + "th";
+    return num + "th";
   }
 
   const index = num % 10; // Get the last digit
@@ -73,8 +73,8 @@ export function convertTo12HourFormat(time24: string): string {
 
 export function formatBDT(amount: number): string {
   return `৳${amount.toLocaleString('en-BD', {
-      minimumFractionDigits: 2, // Ensures two decimal places
-      maximumFractionDigits: 2, // Ensures two decimal places
+    minimumFractionDigits: 2, // Ensures two decimal places
+    maximumFractionDigits: 2, // Ensures two decimal places
   })}`;
 }
 
